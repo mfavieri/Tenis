@@ -4,7 +4,8 @@ from flask_mail import Mail
 from dotenv import load_dotenv
 import os
 
-load_dotenv('venv/config.env')
+_base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+load_dotenv(os.path.join(_base_dir, 'venv', 'config.env'), override=True)
 
 db = SQLAlchemy()
 mail = Mail()
