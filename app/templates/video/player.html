@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ video.ds_video[:60] }} – Tênis{% endblock %}
+
+{% block content %}
+<div class="player-page">
+  <div class="player-wrap">
+    <iframe src="https://www.youtube.com/embed/{{ video.url_video }}?autoplay=1&rel=0"
+            allowfullscreen allow="autoplay; encrypted-media"></iframe>
+  </div>
+  <div class="player-info">
+    <p class="player-cat">{{ video.assunto.ds_assunto.rstrip() }}</p>
+    <h1 class="player-title">{{ video.ds_video[:100] }}</h1>
+    <div class="player-meta">
+      <span>Upload: {{ video.dt_upload }}</span>
+      {% if video.dt_aval %}<span>Aprovado: {{ video.dt_aval }}</span>{% endif %}
+    </div>
+    <p class="player-desc">{{ video.ds_video }}</p>
+  </div>
+</div>
+{% endblock %}

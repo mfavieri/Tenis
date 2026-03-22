@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Entrar – Tênis{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="auth-box">
+    <h1>Entrar</h1>
+    <form method="POST">
+      <div class="field">
+        <input type="text" name="usuario" class="control" placeholder="Usuário ou E-mail" required autofocus>
+      </div>
+      <div class="field pw-field">
+        <input type="password" name="senha" id="pw" class="control" placeholder="Senha" required>
+        <button type="button" class="toggle-pw" onclick="togglePw('pw')">&#128065;</button>
+      </div>
+      <div class="check-row">
+        <input type="checkbox" name="lembrar" id="lembrar">
+        <label for="lembrar">Lembrar de mim</label>
+      </div>
+      <button type="submit" class="btn-submit">Entrar</button>
+      <div class="auth-links">
+        <a href="{{ url_for('auth.esqueci_senha') }}">Esqueci minha senha</a>
+        <a href="{{ url_for('auth.cadastro') }}">Cadastrar</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

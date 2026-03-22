@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Busca – Tênis{% endblock %}
+
+{% block content %}
+<div class="home">
+  <section class="cat-row">
+    <h2 class="cat-title">
+      {% if query %}Resultados para "{{ query }}"{% else %}Pesquisa{% endif %}
+    </h2>
+    {% if videos %}
+      <div class="cards-grid">
+        {% for v in videos %}{% include '_card.html' %}{% endfor %}
+      </div>
+    {% else %}
+      <div class="empty"><p>Nenhum vídeo encontrado.</p></div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

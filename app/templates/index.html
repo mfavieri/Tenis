@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Início – Tênis{% endblock %}
+
+{% block content %}
+<div class="home">
+  {% if categorias %}
+    {% for cat in categorias %}
+    <section class="cat-row">
+      <h2 class="cat-title">{{ cat.assunto.ds_assunto.rstrip() }}</h2>
+      <div class="cards-scroll">
+        {% for v in cat.videos %}
+          {% include '_card.html' %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+  {% else %}
+    <div class="empty">
+      <div class="empty-icon">🎾</div>
+      <h2>Nenhum vídeo disponível ainda</h2>
+      <p>Os vídeos aparecerão aqui após aprovação.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

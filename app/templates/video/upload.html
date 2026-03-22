@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Enviar Vídeo – Tênis{% endblock %}
+
+{% block content %}
+<div class="form-page">
+  <h1>Enviar Vídeo</h1>
+  <form method="POST" class="form-box">
+    <div class="field">
+      <label>URL ou ID do vídeo no YouTube</label>
+      <input type="text" name="url_video" class="control" required
+             placeholder="https://www.youtube.com/watch?v=... ou apenas o ID">
+    </div>
+    <div class="field">
+      <label>Assunto</label>
+      <select name="cd_assunto" class="control" required>
+        <option value="">Selecione…</option>
+        {% for a in assuntos %}
+          <option value="{{ a.cd_assunto }}">{{ a.ds_assunto.rstrip() }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label>Descrição</label>
+      <textarea name="ds_video" class="control" rows="5" maxlength="5000"
+                placeholder="Descreva o conteúdo do vídeo…"></textarea>
+    </div>
+    <button type="submit" class="btn-submit">Enviar para avaliação</button>
+  </form>
+</div>
+{% endblock %}

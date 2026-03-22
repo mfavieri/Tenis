@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ assunto.ds_assunto.rstrip() }} – Tênis{% endblock %}
+
+{% block content %}
+<div class="home">
+  <section class="cat-row">
+    <h2 class="cat-title">{{ assunto.ds_assunto.rstrip() }}</h2>
+    {% if videos %}
+      <div class="cards-grid">
+        {% for v in videos %}{% include '_card.html' %}{% endfor %}
+      </div>
+    {% else %}
+      <div class="empty"><p>Nenhum vídeo nesta categoria.</p></div>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

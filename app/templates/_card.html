@@ -1,0 +1,16 @@
+<a class="card" href="{{ url_for('video.player', video_id=v.id) }}">
+  <div class="card-thumb">
+    <img src="https://img.youtube.com/vi/{{ v.url_video }}/maxresdefault.jpg"
+         alt="{{ v.ds_video[:50] }}"
+         onerror="this.src='https://img.youtube.com/vi/{{ v.url_video }}/hqdefault.jpg'">
+    <div class="card-play">&#9654;</div>
+  </div>
+  <div class="card-body">
+    <p class="card-title">{{ v.ds_video[:70] }}{% if v.ds_video|length > 70 %}…{% endif %}</p>
+    <p class="card-date">{{ v.dt_upload }}</p>
+  </div>
+  <div class="card-hover">
+    <p>{{ v.ds_video[:130] }}{% if v.ds_video|length > 130 %}…{% endif %}</p>
+    <span class="btn-play-sm">&#9654; Assistir</span>
+  </div>
+</a>

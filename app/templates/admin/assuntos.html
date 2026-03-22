@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Assuntos – Admin{% endblock %}
+
+{% block content %}
+<div class="form-page">
+  <h1>Gerenciar Assuntos</h1>
+
+  <!-- Adicionar -->
+  <div class="panel">
+    <h3>Novo Assunto</h3>
+    <form method="POST" class="form-row-inline">
+      <input type="hidden" name="action" value="add">
+      <input type="text" name="cd_assunto" class="control" placeholder="Código (8 car.)" maxlength="8" required style="width:140px">
+      <input type="text" name="ds_assunto" class="control" placeholder="Descrição" maxlength="100" required style="flex:1">
+      <button type="submit" class="btn-submit" style="width:auto;padding:10px 24px">Adicionar</button>
+    </form>
+  </div>
+
+  <!-- Lista -->
+  <table class="data-table">
+    <thead>
+      <tr><th>Código</th><th>Descrição</th><th>Vídeos</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for a in lista %}
+      <tr>
+        <td>{{ a.cd_assunto }}</td>
+        <td>{{ a.ds_assunto.rstrip() }}</td>
+        <td>{{ a.videos|length }}</td>
+        <td>
+          <form method="POST" style="display:inline"
+                onsubmit="return confirm('Remover assunto {{ a.cd_assunto }}?')">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="cd_assunto" value="{{ a.cd_assunto }}">
+            <button type="submit" class="btn-del">Remover</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4" style="color:var(--muted)">Nenhum assunto cadastrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

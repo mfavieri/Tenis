@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Avaliar Vídeos – Admin{% endblock %}
+
+{% block content %}
+<div class="form-page">
+  <h1>Vídeos Pendentes de Aprovação</h1>
+
+  {% if pendentes %}
+    <div class="pending-list">
+      {% for v in pendentes %}
+      <div class="pending-card">
+        <div class="pending-thumb">
+          <img src="https://img.youtube.com/vi/{{ v.url_video }}/hqdefault.jpg" alt="">
+        </div>
+        <div class="pending-info">
+          <p class="pending-cat">{{ v.assunto.ds_assunto.rstrip() }}</p>
+          <p class="pending-desc">{{ v.ds_video[:200] }}{% if v.ds_video|length > 200 %}…{% endif %}</p>
+          <p class="pending-meta">Upload: {{ v.dt_upload }} &nbsp;|&nbsp; Por: {{ v.cd_usr }}</p>
+          <div class="pending-actions">
+            <form method="POST" style="display:inline">
+              <input type="hidden" name="video_id" value="{{ v.id }}">
+              <input type="hidden" name="action" value="aprovar">
+              <button type="submit" class="btn-approve">&#10003; Aprovar</button>
+            </form>
+            <form method="POST" style="display:inline"
+                  onsubmit="return confirm('Rejeitar e remover este vídeo?')">
+              <input type="hidden" name="video_id" value="{{ v.id }}">
+              <input type="hidden" name="action" value="rejeitar">
+              <button type="submit" class="btn-del">&#10007; Rejeitar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty"><p>Nenhum vídeo aguardando avaliação.</p></div>
+  {% endif %}
+</div>
+{% endblock %}

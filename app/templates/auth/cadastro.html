@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Cadastro – Tênis{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="auth-box">
+
+    {% if step == 'verificar' %}
+      <h1>Verificar E-mail</h1>
+      <p class="auth-sub">Enviamos um código para <strong>{{ email }}</strong></p>
+      <div class="countdown" id="cd">2:00</div>
+
+      <form method="POST">
+        <input type="hidden" name="action" value="verificar_codigo">
+        <div class="field">
+          <input type="text" name="code" class="control code-input"
+                 placeholder="Código (7 caracteres)" maxlength="7" required autofocus
+                 style="text-transform:uppercase;letter-spacing:6px;text-align:center;font-size:1.3rem">
+        </div>
+        <button type="submit" class="btn-submit">Verificar</button>
+      </form>
+
+      <form method="POST" style="margin-top:10px">
+        <input type="hidden" name="action" value="reenviar_codigo">
+        <button type="submit" class="btn-submit btn-ghost">Reenviar código</button>
+      </form>
+
+    {% else %}
+      <h1>Criar conta</h1>
+      <form method="POST">
+        <input type="hidden" name="action" value="enviar_codigo">
+        <div class="field">
+          <input type="text" name="cd_usr" class="control" placeholder="Usuário (até 20 caracteres)"
+                 maxlength="20" required>
+        </div>
+        <div class="field">
+          <input type="email" name="nm_email" class="control" placeholder="E-mail" required>
+        </div>
+        <div class="field">
+          <input type="tel" name="cd_fone" class="control" placeholder="Telefone: (99) 999999999"
+                 maxlength="15">
+        </div>
+        <div class="field pw-field">
+          <input type="password" name="nm_senha" id="pw1" class="control" placeholder="Senha" required>
+          <button type="button" class="toggle-pw" onclick="togglePw('pw1')">&#128065;</button>
+        </div>
+        <div class="field pw-field">
+          <input type="password" name="nm_conf" id="pw2" class="control" placeholder="Confirmar senha" required>
+          <button type="button" class="toggle-pw" onclick="togglePw('pw2')">&#128065;</button>
+        </div>
+        <button type="submit" class="btn-submit">Cadastrar</button>
+        <div class="auth-links">
+          <a href="{{ url_for('auth.login') }}">Já tenho conta</a>
+        </div>
+      </form>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% if step == 'verificar' %}
+<script>startCountdown(120, 'cd');</script>
+{% endif %}
+{% endblock %}
