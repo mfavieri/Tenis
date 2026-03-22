@@ -25,9 +25,25 @@
       {% for a in lista %}
       <tr>
         <td>{{ a.cd_assunto }}</td>
-        <td>{{ a.ds_assunto.rstrip() }}</td>
-        <td>{{ a.videos|length }}</td>
         <td>
+          {% if editando == a.cd_assunto %}
+            <form method="POST" class="form-row-inline" style="margin:0">
+              <input type="hidden" name="action" value="edit">
+              <input type="hidden" name="cd_assunto" value="{{ a.cd_assunto }}">
+              <input type="text" name="ds_assunto" class="control" value="{{ a.ds_assunto.rstrip() }}"
+                     maxlength="100" required style="flex:1;padding:6px 10px">
+              <button type="submit" class="btn-approve" style="white-space:nowrap">&#10003; Salvar</button>
+              <a href="{{ url_for('admin.assuntos') }}" class="btn-del" style="text-decoration:none;padding:5px 10px">&#10007;</a>
+            </form>
+          {% else %}
+            {{ a.ds_assunto.rstrip() }}
+          {% endif %}
+        </td>
+        <td>{{ a.videos|length }}</td>
+        <td style="white-space:nowrap">
+          {% if editando != a.cd_assunto %}
+            <a href="{{ url_for('admin.assuntos', edit=a.cd_assunto) }}" class="btn-approve" style="text-decoration:none;margin-right:4px">Editar</a>
+          {% endif %}
           <form method="POST" style="display:inline"
                 onsubmit="return confirm('Remover assunto {{ a.cd_assunto }}?')">
             <input type="hidden" name="action" value="delete">

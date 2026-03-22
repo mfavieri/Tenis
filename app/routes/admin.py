@@ -36,6 +36,15 @@ def assuntos():
                 db.session.commit()
                 flash('Assunto cadastrado!', 'success')
 
+        elif action == 'edit':
+            cd = request.form.get('cd_assunto')
+            ds = request.form.get('ds_assunto', '').strip()[:100]
+            assunto = Assunto.query.get(cd)
+            if assunto and ds:
+                assunto.ds_assunto = ds
+                db.session.commit()
+                flash('Assunto atualizado!', 'success')
+
         elif action == 'delete':
             cd = request.form.get('cd_assunto')
             assunto = Assunto.query.get(cd)
@@ -47,7 +56,45 @@ def assuntos():
         return redirect(url_for('admin.assuntos'))
 
     lista = Assunto.query.order_by(Assunto.ds_assunto).all()
-    return render_template('admin/assuntos.html', lista=lista)
+    editando = request.args.get('edit')
+    return render_template('admin/assuntos.html', lista=lista, editando=editando)
+
+
+# ── VÍDEOS (CRUD) ─────────────────────────────────────────────────────────────
+
+@admin_bp.route('/videos', methods=['GET', 'POST'])
+def videos():
+    _exige_admin()
+
+    if request.method == 'POST':
+        action = request.form.get('action')
+
+        if action == 'edit':
+            vid_id     = request.form.get('video_id')
+            cd_assunto = request.form.get('cd_assunto', '').strip()
+            ds_video   = request.form.get('ds_video',   '').strip()[:5000]
+            video = Video.query.get(vid_id)
+            if video:
+                video.cd_assunto = cd_assunto
+                video.ds_video   = ds_video
+                db.session.commit()
+                flash('Vídeo atualizado!', 'success')
+
+        elif action == 'delete':
+            vid_id = request.form.get('video_id')
+            video  = Video.query.get(vid_id)
+            if video:
+                db.session.delete(video)
+                db.session.commit()
+                flash('Vídeo removido.', 'success')
+
+        return redirect(url_for('admin.videos'))
+
+    todos    = Video.query.order_by(Video.dt_upload.desc()).all()
+    assuntos = Assunto.query.order_by(Assunto.ds_assunto).all()
+    editando = request.args.get('edit', type=int)
+    return render_template('admin/videos.html', videos=todos,
+                           assuntos=assuntos, editando=editando)
 
 
 # ── AVALIAR VÍDEOS ────────────────────────────────────────────────────────────

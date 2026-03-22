@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Vídeos – Admin{% endblock %}
+
+{% block content %}
+<div class="form-page" style="max-width:1000px">
+  <h1>Gerenciar Vídeos</h1>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Thumb</th>
+        <th>Descrição</th>
+        <th>Assunto</th>
+        <th>Upload</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in videos %}
+      <tr>
+        <td style="width:90px">
+          <img src="https://img.youtube.com/vi/{{ v.url_video }}/default.jpg"
+               style="width:80px;border-radius:4px">
+        </td>
+
+        {% if editando == v.id %}
+        <!-- Linha de edição -->
+        <td colspan="3">
+          <form method="POST" id="form-edit-{{ v.id }}">
+            <input type="hidden" name="action"   value="edit">
+            <input type="hidden" name="video_id" value="{{ v.id }}">
+            <div style="display:flex;gap:8px;margin-bottom:8px">
+              <select name="cd_assunto" class="control" style="width:180px">
+                {% for a in assuntos %}
+                  <option value="{{ a.cd_assunto }}"
+                    {{ 'selected' if a.cd_assunto == v.cd_assunto }}>
+                    {{ a.ds_assunto.rstrip() }}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+            <textarea name="ds_video" class="control" rows="3"
+                      maxlength="5000">{{ v.ds_video }}</textarea>
+          </form>
+        </td>
+        <td>{{ v.dt_upload }}</td>
+        <td>{{ '✅ Aprovado' if v.dt_aval else '⏳ Pendente' }}</td>
+        <td style="white-space:nowrap">
+          <button type="submit" form="form-edit-{{ v.id }}" class="btn-approve">&#10003; Salvar</button>
+          <a href="{{ url_for('admin.videos') }}" class="btn-del" style="text-decoration:none;padding:5px 10px">&#10007;</a>
+        </td>
+
+        {% else %}
+        <!-- Linha normal -->
+        <td style="font-size:.85rem;max-width:300px">
+          {{ v.ds_video[:80] }}{% if v.ds_video|length > 80 %}…{% endif %}
+        </td>
+        <td>{{ v.assunto.ds_assunto.rstrip() }}</td>
+        <td>{{ v.dt_upload }}</td>
+        <td>
+          {% if v.dt_aval %}
+            <span style="color:#4caf50">&#10003; Aprovado</span>
+          {% else %}
+            <span style="color:#ff9800">&#8987; Pendente</span>
+          {% endif %}
+        </td>
+        <td style="white-space:nowrap">
+          <a href="{{ url_for('admin.videos', edit=v.id) }}"
+             class="btn-approve" style="text-decoration:none;margin-right:4px">Editar</a>
+          <form method="POST" style="display:inline"
+                onsubmit="return confirm('Remover este vídeo?')">
+            <input type="hidden" name="action"   value="delete">
+            <input type="hidden" name="video_id" value="{{ v.id }}">
+            <button type="submit" class="btn-del">Remover</button>
+          </form>
+        </td>
+        {% endif %}
+      </tr>
+      {% else %}
+      <tr><td colspan="6" style="color:var(--muted)">Nenhum vídeo cadastrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

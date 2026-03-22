@@ -47,7 +47,8 @@
   <a href="{{ url_for('video.upload') }}" class="btn-action btn-upload">&#9650; Enviar Vídeo</a>
   {% if is_admin %}
     <a href="{{ url_for('admin.assuntos') }}" class="btn-action btn-adm">&#9881; Assuntos</a>
-    <a href="{{ url_for('admin.avaliar') }}"  class="btn-action btn-adm">&#10003; Avaliar Vídeos</a>
+    <a href="{{ url_for('admin.videos') }}"   class="btn-action btn-adm">&#127916; Vídeos</a>
+    <a href="{{ url_for('admin.avaliar') }}"  class="btn-action btn-adm">&#10003; Avaliar</a>
   {% endif %}
 </div>
 {% endif %}
