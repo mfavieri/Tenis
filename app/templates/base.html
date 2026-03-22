@@ -33,10 +33,10 @@
 
     <!-- Usuário / Login -->
     {% if current_user %}
-      <span class="user-label">{{ current_user.cd_usr }}</span>
+      <span class="user-label" style="margin-left:auto">👤 {{ current_user.cd_usr }}</span>
       <a href="{{ url_for('auth.logout') }}" class="btn-nav">Sair</a>
     {% else %}
-      <a href="{{ url_for('auth.login') }}" class="btn-nav">Entrar</a>
+      <a href="{{ url_for('auth.login') }}" class="btn-nav" style="margin-left:auto">Entrar</a>
     {% endif %}
   </div>
 </nav>
