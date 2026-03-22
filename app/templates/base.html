@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Tênis{% endblock %}</title>
+  <title>{% block title %}Shared Tênnis{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -12,7 +12,7 @@
 <!-- ── NAVBAR ─────────────────────────────────────────────────────────────── -->
 <nav class="navbar" id="navbar">
   <div class="navbar-left">
-    <a href="{{ url_for('main.index') }}" class="logo">🎾 TÊNIS</a>
+    <a href="{{ url_for('main.index') }}" class="logo">🎾 Shared Tênnis</a>
 
     <div class="nav-cats">
       {% for a in assuntos %}

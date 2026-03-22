@@ -97,7 +97,7 @@ def cadastro():
             }
 
             try:
-                msg = Message('Código de verificação – Tênis',
+                msg = Message('Código de verificação – Shared Tênnis',
                               recipients=[nm_email])
                 msg.body = (f'Seu código de verificação é: {code}\n\n'
                             'Este código expira em 2 minutos.')
@@ -147,7 +147,7 @@ def cadastro():
             session['reg_code'] = code
 
             try:
-                msg = Message('Novo código de verificação – Tênis',
+                msg = Message('Novo código de verificação – Shared Tênnis',
                               recipients=[reg_data['nm_email']])
                 msg.body = f'Seu novo código é: {code}\n\nExpira em 2 minutos.'
                 mail.send(msg)
@@ -173,7 +173,7 @@ def esqueci_senha():
             token = _serializer().dumps(nm_email, salt='reset-senha')
             link  = url_for('auth.resetar_senha', token=token, _external=True)
             try:
-                msg = Message('Redefinir senha – Tênis', recipients=[nm_email])
+                msg = Message('Redefinir senha – Shared Tênnis', recipients=[nm_email])
                 msg.body = (f'Clique no link para redefinir sua senha:\n\n{link}\n\n'
                             'O link expira em 1 hora.')
                 mail.send(msg)
