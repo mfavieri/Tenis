@@ -7,7 +7,7 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
     categorias = []
-    for assunto in Assunto.query.order_by(Assunto.ds_assunto).all():
+    for assunto in Assunto.query.order_by(Assunto.cd_assunto).all():
         videos = (Video.query
                   .filter_by(cd_assunto=assunto.cd_assunto)
                   .filter(Video.dt_aval.isnot(None))

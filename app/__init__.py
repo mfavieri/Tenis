@@ -43,7 +43,7 @@ def create_app():
     @app.context_processor
     def inject_globals():
         user = get_current_user(request)
-        assuntos = Assunto.query.order_by(Assunto.ds_assunto).all()
+        assuntos = Assunto.query.order_by(Assunto.cd_assunto).all()
         return {
             'current_user': user,
             'is_admin': is_admin(user),

@@ -28,7 +28,7 @@ def upload():
         flash('Faça login para enviar vídeos.', 'error')
         return redirect(url_for('auth.login'))
 
-    assuntos = Assunto.query.order_by(Assunto.ds_assunto).all()
+    assuntos = Assunto.query.order_by(Assunto.cd_assunto).all()
 
     if request.method == 'POST':
         url_raw    = request.form.get('url_video', '').strip()

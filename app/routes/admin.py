@@ -55,7 +55,7 @@ def assuntos():
 
         return redirect(url_for('admin.assuntos'))
 
-    lista = Assunto.query.order_by(Assunto.ds_assunto).all()
+    lista = Assunto.query.order_by(Assunto.cd_assunto).all()
     editando = request.args.get('edit')
     return render_template('admin/assuntos.html', lista=lista, editando=editando)
 
@@ -91,7 +91,7 @@ def videos():
         return redirect(url_for('admin.videos'))
 
     todos    = Video.query.order_by(Video.dt_upload.desc()).all()
-    assuntos = Assunto.query.order_by(Assunto.ds_assunto).all()
+    assuntos = Assunto.query.order_by(Assunto.cd_assunto).all()
     editando = request.args.get('edit', type=int)
     return render_template('admin/videos.html', videos=todos,
                            assuntos=assuntos, editando=editando)
