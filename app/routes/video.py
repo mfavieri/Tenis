@@ -35,13 +35,15 @@ def upload():
         cd_assunto = request.form.get('cd_assunto', '').strip()
         ds_video   = request.form.get('ds_video',   '').strip()[:5000]
 
-        # Extrai apenas o ID do YouTube se for URL completa
+        # Extrai apenas o ID do YouTube (watch, shorts, youtu.be)
         yt_id = url_raw
         if 'youtube.com/watch' in url_raw:
             yt_id = url_raw.split('v=')[1].split('&')[0]
+        elif 'youtube.com/shorts/' in url_raw:
+            yt_id = url_raw.split('/shorts/')[1].split('?')[0]
         elif 'youtu.be/' in url_raw:
             yt_id = url_raw.split('youtu.be/')[1].split('?')[0]
-        yt_id = yt_id[:50]
+        yt_id = yt_id.strip()[:50]
 
         if Video.query.filter_by(url_video=yt_id).first():
             flash('Este vídeo já está cadastrado.', 'error')
