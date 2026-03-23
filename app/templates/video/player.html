@@ -11,6 +11,7 @@
     <p class="player-cat">{{ video.assunto.ds_assunto.rstrip() }}</p>
     <h1 class="player-title">{{ video.ds_video[:100] }}</h1>
     <div class="player-meta">
+      <span>&#128100; {{ video.cd_usr }}</span>
       <span>Upload: {{ video.dt_upload }}</span>
       {% if video.dt_aval %}<span>Aprovado: {{ video.dt_aval }}</span>{% endif %}
     </div>
