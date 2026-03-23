@@ -1,11 +1,14 @@
 from flask import Blueprint, render_template, request
 from app.models import Assunto, Video
+from app.utils import is_admin_from_request
 
 main_bp = Blueprint('main', __name__)
 
 
 @main_bp.route('/')
 def index():
+    admin = is_admin_from_request(request)
+
     categorias = []
     for assunto in Assunto.query.order_by(Assunto.cd_assunto).all():
         videos = (Video.query
@@ -14,7 +17,12 @@ def index():
                   .all())
         if videos:
             categorias.append({'assunto': assunto, 'videos': videos})
-    return render_template('index.html', categorias=categorias)
+
+    pendentes = []
+    if admin:
+        pendentes = Video.query.filter(Video.dt_aval.is_(None)).order_by(Video.dt_upload.desc()).all()
+
+    return render_template('index.html', categorias=categorias, pendentes=pendentes)
 
 
 @main_bp.route('/categoria/<cd_assunto>')

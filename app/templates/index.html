@@ -3,6 +3,30 @@
 
 {% block content %}
 <div class="home">
+
+  {% if is_admin and pendentes %}
+  <section class="cat-row">
+    <h2 class="cat-title pending-title">⏳ Aguardando Aprovação ({{ pendentes|length }})</h2>
+    <div class="cards-scroll">
+      {% for v in pendentes %}
+        <a class="card card-pending" href="{{ url_for('video.player', video_id=v.id) }}">
+          <div class="card-thumb">
+            <img src="https://img.youtube.com/vi/{{ v.url_video }}/maxresdefault.jpg"
+                 alt="{{ v.ds_video[:50] }}"
+                 onerror="this.src='https://img.youtube.com/vi/{{ v.url_video }}/hqdefault.jpg'">
+            <div class="card-play">&#9654;</div>
+            <span class="badge-pending">Pendente</span>
+          </div>
+          <div class="card-body">
+            <p class="card-title">{{ v.ds_video[:70] }}{% if v.ds_video|length > 70 %}…{% endif %}</p>
+            <p class="card-date">{{ v.dt_upload }} · {{ v.assunto.ds_assunto.rstrip() }}</p>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
   {% if categorias %}
     {% for cat in categorias %}
     <section class="cat-row">
@@ -15,11 +39,14 @@
     </section>
     {% endfor %}
   {% else %}
+    {% if not (is_admin and pendentes) %}
     <div class="empty">
       <div class="empty-icon">🎾</div>
       <h2>Nenhum vídeo disponível ainda</h2>
       <p>Os vídeos aparecerão aqui após aprovação.</p>
     </div>
+    {% endif %}
   {% endif %}
+
 </div>
 {% endblock %}

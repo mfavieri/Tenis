@@ -286,3 +286,16 @@ select.control option { background:#1f1f1f; }
 .pending-desc  { font-size:.85rem; color:var(--muted); line-height:1.5; margin-bottom:10px; }
 .pending-meta  { font-size:.78rem; color:var(--muted); margin-bottom:12px; }
 .pending-actions { display:flex; gap:8px; }
+
+/* ── PENDENTES (admin) ───────────────────────────────────────────────────── */
+.pending-title { color: #ff9800; }
+
+.card-pending .card-thumb { border: 2px solid rgba(255,152,0,.5); border-radius:6px 6px 0 0; }
+
+.badge-pending {
+  position:absolute; top:8px; left:8px;
+  background:rgba(255,152,0,.9); color:#000;
+  font-size:.7rem; font-weight:700;
+  padding:2px 8px; border-radius:10px;
+  text-transform:uppercase; letter-spacing:.5px;
+}
