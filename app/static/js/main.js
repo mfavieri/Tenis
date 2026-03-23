@@ -31,6 +31,18 @@ setTimeout(() => {
   });
 }, 4000);
 
+// ── YOUTUBE THUMBNAIL FALLBACK ───────────────────────────────────────────────
+var _ytFallbacks = ['mqdefault', 'sddefault', 'default'];
+function ytFallback(img, id) {
+  var tried = img.dataset.ytTried ? parseInt(img.dataset.ytTried) : 0;
+  if (tried < _ytFallbacks.length) {
+    img.dataset.ytTried = tried + 1;
+    img.src = 'https://img.youtube.com/vi/' + id + '/' + _ytFallbacks[tried] + '.jpg';
+  } else {
+    img.onerror = null;
+  }
+}
+
 // ── COUNTDOWN (cadastro por e-mail) ──────────────────────────────────────────
 function startCountdown(seconds, elId) {
   const el = document.getElementById(elId);

@@ -11,9 +11,9 @@
       {% for v in pendentes %}
         <a class="card card-pending" href="{{ url_for('video.player', video_id=v.id) }}">
           <div class="card-thumb">
-            <img src="https://img.youtube.com/vi/{{ v.url_video }}/maxresdefault.jpg"
+            <img src="https://img.youtube.com/vi/{{ v.url_video }}/hqdefault.jpg"
                  alt="{{ v.ds_video[:50] }}"
-                 onerror="this.src='https://img.youtube.com/vi/{{ v.url_video }}/hqdefault.jpg'">
+                 onerror="ytFallback(this,'{{ v.url_video }}')">
             <div class="card-play">&#9654;</div>
             <span class="badge-pending">Pendente</span>
           </div>
